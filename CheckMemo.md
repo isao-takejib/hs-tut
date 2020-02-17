@@ -1,0 +1,42 @@
+- イントロダクション
+- なぜ stack を使うのか？
+    - stack について (対応、場所違い)
+    - Haskell でソフトウェア開発 (対応, [なぜ stack を使うのか？])
+    - cabal hell (対応, [なぜ stack を使うのか？])
+    - Haskell Platform (新規?)
+    - まとめ (対応, [なぜ stack を使うのか？])
+- Stackage とは何か？
+    - 前書き (対応, [Stackage とは何か？])
+    - スナップショットのバージョン規則 (対応, [Stackage とは何か？])
+    - スナップショットに追加されるタイミング (対応, [Stackage とは何か？])
+    - カスタムスナップショット (新規?)
+- stack のインストールと設定
+    - Qiita 版にのみ前書きあり [はじめに]
+    - インストール (対応, [stack のインストール])
+    - パスの追加 (対応, [stack のインストール])
+    - コマンドの自動補完設定 (対応, [hpack について]の次にある[stack サブコマンドの自動補完])
+        - zsh に関する記述は公式リンクを参照する形式だが、Qiita 版には設定方法の記述あり
+    - ~/.stack/ のディレクトリ構造 (対応, [config.yaml])
+    - config.yaml (対応, [config.yaml])
+        - Qiita 版の設定例には「default-template: new-template」もあり
+- hpack とは何か？
+    - 前書き (対応, [hpack について])
+    - インストール & 使い方 (新規?)
+        - .gitignore ファイルへの追加 (新規?)
+    - hpack を使いたくない場合 (新規?)
+- stack 以外の選択肢について (対応 (ただし、[Stackage とは何か？]の次))
+    - 以下のリンクは Qiita 版にのみ掲載されている
+        - https://www.haskell.org/cabal/
+        - https://www.haskell.org/platform/
+        - https://github.com/Gabriel439/haskell-nix
+        - https://maybevoid.com/posts/2019-01-27-getting-started-haskell-nix.html
+
+# メモ
+- wip
+    - バージョン確認
+        - stack-version (対応, [stack, hpack のバージョンのみを取得する])
+
+# Qiitaのみ?
+- エディタについて
+- stack のバージョンについて
+- stack コマンドの更新
