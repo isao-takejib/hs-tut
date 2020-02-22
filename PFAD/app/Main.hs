@@ -1,6 +1,4 @@
-module Main where
-
-import Lib
+module Main (main) where
 
 main :: IO ()
-main = someFunc
+main = print "Hello World"
