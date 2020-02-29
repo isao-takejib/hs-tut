@@ -1,4 +1,4 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Minfree</span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Minfree.html#minfree"><span class="hs-identifier">minfree</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Minfree.html#minfree%27"><span class="hs-identifier">minfree'</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd"><html xmlns="http://www.w3.org/1999/xhtml"><head><link rel="stylesheet" type="text/css" href="style.css" /><script type="text/javascript" src="highlight.js"></script></head><body><pre><span class="hs-keyword">module</span><span> </span><span class="hs-identifier">Minfree</span><span> </span><span class="hs-special">(</span><span class="annot"><a href="Minfree.html#minfree"><span class="hs-identifier">minfree</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Minfree.html#minfree%27"><span class="hs-identifier">minfree'</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><a href="Minfree.html#%5C%5C"><span class="hs-operator">(\\)</span></a></span><span class="hs-special">)</span><span> </span><span class="hs-keyword">where</span><span>
 </span><span id="line-2"></span><span>
 </span><span id="line-3"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Array</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">Array</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">elems</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">accumArray</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">assocs</span></span><span class="hs-special">)</span><span>
 </span><span id="line-4"></span><span class="hs-keyword">import</span><span> </span><span class="annot"><span class="hs-identifier">Data.Array.ST</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier">runSTArray</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">newArray</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="hs-identifier">writeArray</span></span><span class="hs-special">)</span><span>
@@ -11,19 +11,28 @@
 </span><span id="line-11"></span><span class="hs-comment">-- &#21069;&#25552;&#26465;&#20214;1: &#19982;&#12360;&#12425;&#12428;&#12383;&#12522;&#12473;&#12488;&#12395;&#12399;&#38918;&#24207;&#12364;&#12388;&#12356;&#12390;&#12356;&#12394;&#12356;</span><span>
 </span><span id="line-12"></span><span class="hs-comment">--</span><span>
 </span><span id="line-13"></span><span class="hs-comment">-- &#21069;&#25552;&#26465;&#20214;2: &#35201;&#32032;&#12399;&#37325;&#35079;&#12375;&#12390;&#12356;&#12394;&#12356;</span><span>
-</span><span id="line-14"></span><span class="annot"><a href="Minfree.html#minfree"><span class="hs-identifier hs-type">minfree</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-15"></span><span id="minfree"><span class="annot"><span class="annottext">minfree :: [Int] -&gt; Int
-</span><a href="Minfree.html#minfree"><span class="hs-identifier hs-var hs-var">minfree</span></a></span></span><span> </span><span id="local-6989586621679033235"><span class="annot"><span class="annottext">xs :: [Int]
-</span><a href="#local-6989586621679033235"><span class="hs-identifier hs-var">xs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Int] -&gt; Int
+</span><span id="line-14"></span><span class="hs-comment">--</span><span>
+</span><span id="line-15"></span><span class="hs-comment">-- &gt;&gt;&gt; minfree [8, 23, 9, 0, 12, 11, 1, 10, 13, 7, 41, 4, 14, 21, 5, 17, 3, 19, 2, 6]</span><span>
+</span><span id="line-16"></span><span class="hs-comment">-- 15</span><span>
+</span><span id="line-17"></span><span class="annot"><a href="Minfree.html#minfree"><span class="hs-identifier hs-type">minfree</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-18"></span><span id="minfree"><span class="annot"><span class="annottext">minfree :: [Int] -&gt; Int
+</span><a href="Minfree.html#minfree"><span class="hs-identifier hs-var hs-var">minfree</span></a></span></span><span> </span><span id="local-6989586621679033234"><span class="annot"><span class="annottext">xs :: [Int]
+</span><a href="#local-6989586621679033234"><span class="hs-identifier hs-var">xs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Int] -&gt; Int
 forall a. [a] -&gt; a
 </span><span class="hs-identifier hs-var">head</span></span><span> </span><span class="hs-special">(</span><span class="hs-special">[</span><span class="annot"><span class="hs-number">0</span></span><span class="hs-glyph">..</span><span class="hs-special">]</span><span> </span><span class="annot"><span class="annottext">[Int] -&gt; [Int] -&gt; [Int]
 forall a. Eq a =&gt; [a] -&gt; [a] -&gt; [a]
 </span><a href="Minfree.html#%5C%5C"><span class="hs-operator hs-var">\\</span></a></span><span> </span><span class="annot"><span class="annottext">[Int]
-</span><a href="#local-6989586621679033235"><span class="hs-identifier hs-var">xs</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-16"></span><span>
-</span><span id="line-17"></span><span class="hs-comment">-- | &#12522;&#12473;&#12488; us &#12363;&#12425; vs &#12395;&#21547;&#12414;&#12428;&#12427;&#35201;&#32032;&#12434;&#12377;&#12409;&#12390;&#38500;&#12356;&#12383;&#27531;&#12426;&#12398;&#35201;&#32032;&#12398;&#12522;&#12473;&#12488;&#12434;&#36820;&#12377;</span><span>
-</span><span id="line-18"></span><span id="local-6989586621679033296"><span class="annot"><a href="Minfree.html#%5C%5C"><span class="hs-operator hs-type">(\\)</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Eq</span></span><span> </span><span class="annot"><a href="#local-6989586621679033296"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679033296"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679033296"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679033296"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span></span><span>
-</span><span id="line-19"></span><span id="local-6989586621679033232"><span class="annot"><span class="annottext">us :: [a]
+</span><a href="#local-6989586621679033234"><span class="hs-identifier hs-var">xs</span></a></span><span class="hs-special">)</span><span>
+</span><span id="line-19"></span><span>
+</span><span id="line-20"></span><span class="hs-comment">-- | &#12522;&#12473;&#12488; us &#12363;&#12425; vs &#12395;&#21547;&#12414;&#12428;&#12427;&#35201;&#32032;&#12434;&#12377;&#12409;&#12390;&#38500;&#12356;&#12383;&#27531;&#12426;&#12398;&#35201;&#32032;&#12398;&#12522;&#12473;&#12488;&#12434;&#36820;&#12377;</span><span>
+</span><span id="line-21"></span><span class="hs-comment">--</span><span>
+</span><span id="line-22"></span><span class="hs-comment">-- prop&gt; (as ++ bs) \\ cs == (as \\ cs) ++ (bs \\ cs)</span><span>
+</span><span id="line-23"></span><span class="hs-comment">--</span><span>
+</span><span id="line-24"></span><span class="hs-comment">-- prop&gt; as \\ (bs ++ cs) == (as \\ bs) \\ cs</span><span>
+</span><span id="line-25"></span><span class="hs-comment">--</span><span>
+</span><span id="line-26"></span><span class="hs-comment">-- prop&gt; (as \\ bs) \\ cs == (as \\ cs) \\ bs</span><span>
+</span><span id="line-27"></span><span id="local-6989586621679033296"><span class="annot"><a href="Minfree.html#%5C%5C"><span class="hs-operator hs-type">(\\)</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Eq</span></span><span> </span><span class="annot"><a href="#local-6989586621679033296"><span class="hs-identifier hs-type">a</span></a></span><span> </span><span class="hs-glyph">=&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679033296"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679033296"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><a href="#local-6989586621679033296"><span class="hs-identifier hs-type">a</span></a></span><span class="hs-special">]</span></span><span>
+</span><span id="line-28"></span><span id="local-6989586621679033232"><span class="annot"><span class="annottext">us :: [a]
 </span><a href="#local-6989586621679033232"><span class="hs-identifier hs-var">us</span></a></span></span><span> </span><span id="%5C%5C"><span class="annot"><span class="annottext">\\ :: [a] -&gt; [a] -&gt; [a]
 </span><a href="Minfree.html#%5C%5C"><span class="hs-operator hs-var hs-var">\\</span></a></span></span><span> </span><span id="local-6989586621679033231"><span class="annot"><span class="annottext">vs :: [a]
 </span><a href="#local-6989586621679033231"><span class="hs-identifier hs-var">vs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(a -&gt; Bool) -&gt; [a] -&gt; [a]
@@ -33,12 +42,12 @@ forall (t :: * -&gt; *) a. (Foldable t, Eq a) =&gt; a -&gt; t a -&gt; Bool
 </span><span class="hs-operator hs-var">`notElem`</span></span><span> </span><span class="annot"><span class="annottext">[a]
 </span><a href="#local-6989586621679033231"><span class="hs-identifier hs-var">vs</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">[a]
 </span><a href="#local-6989586621679033232"><span class="hs-identifier hs-var">us</span></a></span><span>
-</span><span id="line-20"></span><span>
-</span><span id="line-21"></span><span class="hs-comment">-- |</span><span>
-</span><span id="line-22"></span><span class="hs-comment">-- &#24341;&#25968;&#12392;&#12375;&#12390;&#35542;&#29702;&#20516;&#12398;&#37197;&#21015;&#12434;&#21462;&#12427;</span><span>
-</span><span id="line-23"></span><span class="hs-comment">-- &#35542;&#29702;&#20516;&#12398;&#12522;&#12473;&#12488;&#12395;&#22793;&#25563;&#12375;&#12390; True &#12456;&#12531;&#12488;&#12522;&#12540;&#12363;&#12425;&#12394;&#12427;&#26368;&#38263;&#20808;&#38957;&#37096;&#20998;&#21015;&#12398;&#38263;&#12373;&#12434;&#36820;&#12377;</span><span>
-</span><span id="line-24"></span><span class="annot"><a href="Minfree.html#search"><span class="hs-identifier hs-type">search</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Array</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-25"></span><span id="search"><span class="annot"><span class="annottext">search :: Array Int Bool -&gt; Int
+</span><span id="line-29"></span><span>
+</span><span id="line-30"></span><span class="hs-comment">-- |</span><span>
+</span><span id="line-31"></span><span class="hs-comment">-- &#24341;&#25968;&#12392;&#12375;&#12390;&#35542;&#29702;&#20516;&#12398;&#37197;&#21015;&#12434;&#21462;&#12427;</span><span>
+</span><span id="line-32"></span><span class="hs-comment">-- &#35542;&#29702;&#20516;&#12398;&#12522;&#12473;&#12488;&#12395;&#22793;&#25563;&#12375;&#12390; True &#12456;&#12531;&#12488;&#12522;&#12540;&#12363;&#12425;&#12394;&#12427;&#26368;&#38263;&#20808;&#38957;&#37096;&#20998;&#21015;&#12398;&#38263;&#12373;&#12434;&#36820;&#12377;</span><span>
+</span><span id="line-33"></span><span class="annot"><a href="Minfree.html#search"><span class="hs-identifier hs-type">search</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Array</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-34"></span><span id="search"><span class="annot"><span class="annottext">search :: Array Int Bool -&gt; Int
 </span><a href="Minfree.html#search"><span class="hs-identifier hs-var hs-var">search</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Bool] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">([Bool] -&gt; Int)
@@ -54,10 +63,10 @@ forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 </span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Array Int Bool -&gt; [Bool]
 forall i e. Array i e -&gt; [e]
 </span><span class="hs-identifier hs-var">elems</span></span><span>
-</span><span id="line-26"></span><span>
-</span><span id="line-27"></span><span class="hs-comment">-- | &#12522;&#12473;&#12488;&#12363;&#12425;&#37197;&#21015;&#12408;&#12398;&#22793;&#25563;</span><span>
-</span><span id="line-28"></span><span class="annot"><a href="Minfree.html#checklist"><span class="hs-identifier hs-type">checklist</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Array</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
-</span><span id="line-29"></span><span id="checklist"><span class="annot"><span class="annottext">checklist :: [Int] -&gt; Array Int Bool
+</span><span id="line-35"></span><span>
+</span><span id="line-36"></span><span class="hs-comment">-- | &#12522;&#12473;&#12488;&#12363;&#12425;&#37197;&#21015;&#12408;&#12398;&#22793;&#25563;</span><span>
+</span><span id="line-37"></span><span class="annot"><a href="Minfree.html#checklist"><span class="hs-identifier hs-type">checklist</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Array</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
+</span><span id="line-38"></span><span id="checklist"><span class="annot"><span class="annottext">checklist :: [Int] -&gt; Array Int Bool
 </span><a href="Minfree.html#checklist"><span class="hs-identifier hs-var hs-var">checklist</span></a></span></span><span> </span><span id="local-6989586621679033223"><span class="annot"><span class="annottext">xs :: [Int]
 </span><a href="#local-6989586621679033223"><span class="hs-identifier hs-var">xs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(Bool -&gt; Bool -&gt; Bool)
 -&gt; Bool -&gt; (Int, Int) -&gt; [(Int, Bool)] -&gt; Array Int Bool
@@ -79,15 +88,15 @@ forall a. Ord a =&gt; a -&gt; a -&gt; Bool
 forall a. a -&gt; [a]
 </span><span class="hs-identifier hs-var">repeat</span></span><span> </span><span class="annot"><span class="annottext">Bool
 </span><span class="hs-identifier hs-var">True</span></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
-</span><span id="line-30"></span><span>  </span><span class="hs-keyword">where</span><span> </span><span id="local-6989586621679033221"><span class="annot"><span class="annottext">n :: Int
+</span><span id="line-39"></span><span>  </span><span class="hs-keyword">where</span><span> </span><span id="local-6989586621679033221"><span class="annot"><span class="annottext">n :: Int
 </span><a href="#local-6989586621679033221"><span class="hs-identifier hs-var hs-var">n</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Int] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033223"><span class="hs-identifier hs-var">xs</span></a></span><span>
-</span><span id="line-31"></span><span>
-</span><span id="line-32"></span><span class="hs-comment">-- | checklist &#12398;&#32622;&#12365;&#25563;&#12360;</span><span>
-</span><span id="line-33"></span><span class="annot"><a href="Minfree.html#countlist"><span class="hs-identifier hs-type">countlist</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Array</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-34"></span><span id="countlist"><span class="annot"><span class="annottext">countlist :: [Int] -&gt; Array Int Int
+</span><span id="line-40"></span><span>
+</span><span id="line-41"></span><span class="hs-comment">-- | checklist &#12398;&#32622;&#12365;&#25563;&#12360;</span><span>
+</span><span id="line-42"></span><span class="annot"><a href="Minfree.html#countlist"><span class="hs-identifier hs-type">countlist</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Array</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-43"></span><span id="countlist"><span class="annot"><span class="annottext">countlist :: [Int] -&gt; Array Int Int
 </span><a href="Minfree.html#countlist"><span class="hs-identifier hs-var hs-var">countlist</span></a></span></span><span> </span><span id="local-6989586621679033217"><span class="annot"><span class="annottext">xs :: [Int]
 </span><a href="#local-6989586621679033217"><span class="hs-identifier hs-var">xs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(Int -&gt; Int -&gt; Int)
 -&gt; Int -&gt; (Int, Int) -&gt; [(Int, Int)] -&gt; Array Int Int
@@ -103,14 +112,14 @@ forall a b. [a] -&gt; [b] -&gt; [(a, b)]
 </span><a href="#local-6989586621679033217"><span class="hs-identifier hs-var">xs</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int -&gt; [Int]
 forall a. a -&gt; [a]
 </span><span class="hs-identifier hs-var">repeat</span></span><span> </span><span class="annot"><span class="hs-number">1</span></span><span class="hs-special">)</span><span class="hs-special">)</span><span>
-</span><span id="line-35"></span><span>  </span><span class="hs-keyword">where</span><span> </span><span id="local-6989586621679033215"><span class="annot"><span class="annottext">n :: Int
+</span><span id="line-44"></span><span>  </span><span class="hs-keyword">where</span><span> </span><span id="local-6989586621679033215"><span class="annot"><span class="annottext">n :: Int
 </span><a href="#local-6989586621679033215"><span class="hs-identifier hs-var hs-var">n</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Int] -&gt; Int
 forall (t :: * -&gt; *) a. (Foldable t, Ord a) =&gt; t a -&gt; a
 </span><span class="hs-identifier hs-var">maximum</span></span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033217"><span class="hs-identifier hs-var">xs</span></a></span><span>
-</span><span id="line-36"></span><span>
-</span><span id="line-37"></span><span class="annot"><a href="Minfree.html#sort"><span class="hs-identifier hs-type">sort</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span>
-</span><span id="line-38"></span><span id="sort"><span class="annot"><span class="annottext">sort :: [Int] -&gt; [Int]
+</span><span id="line-45"></span><span>
+</span><span id="line-46"></span><span class="annot"><a href="Minfree.html#sort"><span class="hs-identifier hs-type">sort</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span>
+</span><span id="line-47"></span><span id="sort"><span class="annot"><span class="annottext">sort :: [Int] -&gt; [Int]
 </span><a href="Minfree.html#sort"><span class="hs-identifier hs-var hs-var">sort</span></a></span></span><span> </span><span id="local-6989586621679033212"><span class="annot"><span class="annottext">xs :: [Int]
 </span><a href="#local-6989586621679033212"><span class="hs-identifier hs-var">xs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[[Int]] -&gt; [Int]
 forall (t :: * -&gt; *) a. Foldable t =&gt; t [a] -&gt; [a]
@@ -125,10 +134,10 @@ forall i e. Ix i =&gt; Array i e -&gt; [(i, e)]
 </span><span class="hs-identifier hs-var">assocs</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[Int] -&gt; Array Int Int
 </span><a href="Minfree.html#countlist"><span class="hs-identifier hs-var">countlist</span></a></span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033212"><span class="hs-identifier hs-var">xs</span></a></span><span class="hs-special">)</span><span class="hs-special">]</span><span>
-</span><span id="line-39"></span><span>
-</span><span id="line-40"></span><span class="hs-comment">-- | Data.Array.ST &#12514;&#12472;&#12517;&#12540;&#12523;&#12434;&#20351;&#12387;&#12383; checklist</span><span>
-</span><span id="line-41"></span><span class="annot"><a href="Minfree.html#checklist%27"><span class="hs-identifier hs-type">checklist'</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Array</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
-</span><span id="line-42"></span><span id="checklist%27"><span class="annot"><span class="annottext">checklist' :: [Int] -&gt; Array Int Bool
+</span><span id="line-48"></span><span>
+</span><span id="line-49"></span><span class="hs-comment">-- | Data.Array.ST &#12514;&#12472;&#12517;&#12540;&#12523;&#12434;&#20351;&#12387;&#12383; checklist</span><span>
+</span><span id="line-50"></span><span class="annot"><a href="Minfree.html#checklist%27"><span class="hs-identifier hs-type">checklist'</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Array</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span>
+</span><span id="line-51"></span><span id="checklist%27"><span class="annot"><span class="annottext">checklist' :: [Int] -&gt; Array Int Bool
 </span><a href="Minfree.html#checklist%27"><span class="hs-identifier hs-var hs-var">checklist'</span></a></span></span><span> </span><span id="local-6989586621679033206"><span class="annot"><span class="annottext">xs :: [Int]
 </span><a href="#local-6989586621679033206"><span class="hs-identifier hs-var">xs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(forall s. ST s (STArray s Int Bool)) -&gt; Array Int Bool
 forall i e. (forall s. ST s (STArray s i e)) -&gt; Array i e
@@ -136,7 +145,7 @@ forall i e. (forall s. ST s (STArray s i e)) -&gt; Array i e
 -&gt; (forall s. ST s (STArray s Int Bool)) -&gt; Array Int Bool
 forall a b. (a -&gt; b) -&gt; a -&gt; b
 </span><span class="hs-operator hs-var">$</span></span><span> </span><span class="hs-keyword">do</span><span>
-</span><span id="line-43"></span><span>    </span><span id="local-6989586621679033205"><span class="annot"><span class="annottext">STArray s Int Bool
+</span><span id="line-52"></span><span>    </span><span id="local-6989586621679033205"><span class="annot"><span class="annottext">STArray s Int Bool
 </span><a href="#local-6989586621679033205"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-glyph">&lt;-</span><span> </span><span class="annot"><span class="annottext">(Int, Int) -&gt; Bool -&gt; ST s (STArray s Int Bool)
 forall (a :: * -&gt; * -&gt; *) e (m :: * -&gt; *) i.
 (MArray a e m, Ix i) =&gt;
@@ -144,7 +153,7 @@ forall (a :: * -&gt; * -&gt; *) e (m :: * -&gt; *) i.
 </span><span class="hs-identifier hs-var">newArray</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-number">0</span></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033204"><span class="hs-identifier hs-var">n</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">Bool
 </span><span class="hs-identifier hs-var">False</span></span><span>
-</span><span id="line-44"></span><span>    </span><span class="annot"><span class="annottext">[ST s ()] -&gt; ST s [()]
+</span><span id="line-53"></span><span>    </span><span class="annot"><span class="annottext">[ST s ()] -&gt; ST s [()]
 forall (t :: * -&gt; *) (m :: * -&gt; *) a.
 (Traversable t, Monad m) =&gt;
 t (m a) -&gt; m (t a)
@@ -162,19 +171,19 @@ a i e -&gt; i -&gt; e -&gt; m ()
 forall a. Ord a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">&lt;=</span></span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033204"><span class="hs-identifier hs-var">n</span></a></span><span class="hs-special">]</span><span>
-</span><span id="line-45"></span><span>    </span><span class="annot"><span class="annottext">STArray s Int Bool -&gt; ST s (STArray s Int Bool)
+</span><span id="line-54"></span><span>    </span><span class="annot"><span class="annottext">STArray s Int Bool -&gt; ST s (STArray s Int Bool)
 forall (m :: * -&gt; *) a. Monad m =&gt; a -&gt; m a
 </span><span class="hs-identifier hs-var">return</span></span><span> </span><span class="annot"><span class="annottext">STArray s Int Bool
 </span><a href="#local-6989586621679033205"><span class="hs-identifier hs-var">a</span></a></span><span>
-</span><span id="line-46"></span><span>    </span><span class="hs-keyword">where</span><span> </span><span id="local-6989586621679033204"><span class="annot"><span class="annottext">n :: Int
+</span><span id="line-55"></span><span>    </span><span class="hs-keyword">where</span><span> </span><span id="local-6989586621679033204"><span class="annot"><span class="annottext">n :: Int
 </span><a href="#local-6989586621679033204"><span class="hs-identifier hs-var hs-var">n</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Int] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033206"><span class="hs-identifier hs-var">xs</span></a></span><span>
-</span><span id="line-47"></span><span>
-</span><span id="line-48"></span><span class="hs-comment">-- | &#12522;&#12473;&#12488;&#12434;&#36848;&#35486; p &#12434;&#28288;&#12383;&#12377;&#35201;&#32032;&#12392;&#28288;&#12383;&#12373;&#12394;&#12356;&#35201;&#32032;&#12398;&#12522;&#12473;&#12488;&#12395;&#20998;&#21106;&#12377;&#12427;</span><span>
-</span><span id="line-49"></span><span class="annot"><a href="Minfree.html#partition"><span class="hs-identifier hs-type">partition</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span class="hs-special">)</span><span>
-</span><span id="line-50"></span><span id="partition"><span class="annot"><span class="annottext">partition :: (Int -&gt; Bool) -&gt; [Int] -&gt; ([Int], [Int])
+</span><span id="line-56"></span><span>
+</span><span id="line-57"></span><span class="hs-comment">-- | &#12522;&#12473;&#12488;&#12434;&#36848;&#35486; p &#12434;&#28288;&#12383;&#12377;&#35201;&#32032;&#12392;&#28288;&#12383;&#12373;&#12394;&#12356;&#35201;&#32032;&#12398;&#12522;&#12473;&#12488;&#12395;&#20998;&#21106;&#12377;&#12427;</span><span>
+</span><span id="line-58"></span><span class="annot"><a href="Minfree.html#partition"><span class="hs-identifier hs-type">partition</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Bool</span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span class="hs-special">,</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span class="hs-special">)</span><span>
+</span><span id="line-59"></span><span id="partition"><span class="annot"><span class="annottext">partition :: (Int -&gt; Bool) -&gt; [Int] -&gt; ([Int], [Int])
 </span><a href="Minfree.html#partition"><span class="hs-identifier hs-var hs-var">partition</span></a></span></span><span> </span><span id="local-6989586621679033200"><span class="annot"><span class="annottext">p :: Int -&gt; Bool
 </span><a href="#local-6989586621679033200"><span class="hs-identifier hs-var">p</span></a></span></span><span> </span><span id="local-6989586621679033199"><span class="annot"><span class="annottext">xs :: [Int]
 </span><a href="#local-6989586621679033199"><span class="hs-identifier hs-var">xs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">(Int -&gt; Bool) -&gt; [Int] -&gt; [Int]
@@ -189,10 +198,10 @@ forall b c a. (b -&gt; c) -&gt; (a -&gt; b) -&gt; a -&gt; c
 </span><span class="hs-operator hs-var">.</span></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Bool
 </span><a href="#local-6989586621679033200"><span class="hs-identifier hs-var">p</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033199"><span class="hs-identifier hs-var">xs</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-51"></span><span>
-</span><span id="line-52"></span><span class="hs-comment">-- | &#26368;&#32066;&#30340;&#12394; minfree</span><span>
-</span><span id="line-53"></span><span class="annot"><a href="Minfree.html#minfree%27"><span class="hs-identifier hs-type">minfree'</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-54"></span><span id="minfree%27"><span class="annot"><span class="annottext">minfree' :: [Int] -&gt; Int
+</span><span id="line-60"></span><span>
+</span><span id="line-61"></span><span class="hs-comment">-- | &#26368;&#32066;&#30340;&#12394; minfree</span><span>
+</span><span id="line-62"></span><span class="annot"><a href="Minfree.html#minfree%27"><span class="hs-identifier hs-type">minfree'</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-63"></span><span id="minfree%27"><span class="annot"><span class="annottext">minfree' :: [Int] -&gt; Int
 </span><a href="Minfree.html#minfree%27"><span class="hs-identifier hs-var hs-var">minfree'</span></a></span></span><span> </span><span id="local-6989586621679033197"><span class="annot"><span class="annottext">xs :: [Int]
 </span><a href="#local-6989586621679033197"><span class="hs-identifier hs-var">xs</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int -&gt; (Int, [Int]) -&gt; Int
 </span><a href="Minfree.html#minfrom"><span class="hs-identifier hs-var">minfrom</span></a></span><span> </span><span class="annot"><span class="hs-number">0</span></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">[Int] -&gt; Int
@@ -200,20 +209,20 @@ forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033197"><span class="hs-identifier hs-var">xs</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033197"><span class="hs-identifier hs-var">xs</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-55"></span><span>
-</span><span id="line-56"></span><span class="hs-comment">-- | minfree &#12398;&#19968;&#33324;&#21270;</span><span>
-</span><span id="line-57"></span><span class="annot"><a href="Minfree.html#minfrom"><span class="hs-identifier hs-type">minfrom</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">,</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
-</span><span id="line-58"></span><span id="minfrom"><span class="annot"><span class="annottext">minfrom :: Int -&gt; (Int, [Int]) -&gt; Int
+</span><span id="line-64"></span><span>
+</span><span id="line-65"></span><span class="hs-comment">-- | minfree &#12398;&#19968;&#33324;&#21270;</span><span>
+</span><span id="line-66"></span><span class="annot"><a href="Minfree.html#minfrom"><span class="hs-identifier hs-type">minfrom</span></a></span><span> </span><span class="hs-glyph">::</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="hs-special">(</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">,</span><span> </span><span class="hs-special">[</span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span class="hs-special">]</span><span class="hs-special">)</span><span> </span><span class="hs-glyph">-&gt;</span><span> </span><span class="annot"><span class="hs-identifier hs-type">Int</span></span><span>
+</span><span id="line-67"></span><span id="minfrom"><span class="annot"><span class="annottext">minfrom :: Int -&gt; (Int, [Int]) -&gt; Int
 </span><a href="Minfree.html#minfrom"><span class="hs-identifier hs-var hs-var">minfrom</span></a></span></span><span> </span><span id="local-6989586621679033195"><span class="annot"><span class="annottext">a :: Int
 </span><a href="#local-6989586621679033195"><span class="hs-identifier hs-var">a</span></a></span></span><span> </span><span class="hs-special">(</span><span id="local-6989586621679033194"><span class="annot"><span class="annottext">n :: Int
 </span><a href="#local-6989586621679033194"><span class="hs-identifier hs-var">n</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679033193"><span class="annot"><span class="annottext">xs :: [Int]
 </span><a href="#local-6989586621679033193"><span class="hs-identifier hs-var">xs</span></a></span></span><span class="hs-special">)</span><span>
-</span><span id="line-59"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span id="line-68"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033194"><span class="hs-identifier hs-var">n</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
 forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="hs-number">0</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033195"><span class="hs-identifier hs-var">a</span></a></span><span>
-</span><span id="line-60"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Int
+</span><span id="line-69"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033192"><span class="hs-identifier hs-var">m</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
 forall a. Eq a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">==</span></span><span> </span><span class="annot"><span class="annottext">Int
@@ -228,14 +237,14 @@ forall a. Num a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-glyph hs-var">-</span></span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033192"><span class="hs-identifier hs-var">m</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033190"><span class="hs-identifier hs-var">vs</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-61"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Bool
+</span><span id="line-70"></span><span>  </span><span class="hs-glyph">|</span><span> </span><span class="annot"><span class="annottext">Bool
 </span><span class="hs-identifier hs-var">otherwise</span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int -&gt; (Int, [Int]) -&gt; Int
 </span><a href="Minfree.html#minfrom"><span class="hs-identifier hs-var">minfrom</span></a></span><span> </span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033195"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033192"><span class="hs-identifier hs-var">m</span></a></span><span class="hs-special">,</span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033189"><span class="hs-identifier hs-var">us</span></a></span><span class="hs-special">)</span><span>
-</span><span id="line-62"></span><span>    </span><span class="hs-keyword">where</span><span>
-</span><span id="line-63"></span><span>      </span><span class="hs-special">(</span><span id="local-6989586621679033189"><span class="annot"><span class="annottext">us :: [Int]
+</span><span id="line-71"></span><span>    </span><span class="hs-keyword">where</span><span>
+</span><span id="line-72"></span><span>      </span><span class="hs-special">(</span><span id="local-6989586621679033189"><span class="annot"><span class="annottext">us :: [Int]
 </span><a href="#local-6989586621679033189"><span class="hs-identifier hs-var">us</span></a></span></span><span class="hs-special">,</span><span> </span><span id="local-6989586621679033190"><span class="annot"><span class="annottext">vs :: [Int]
 </span><a href="#local-6989586621679033190"><span class="hs-identifier hs-var">vs</span></a></span></span><span class="hs-special">)</span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">(Int -&gt; Bool) -&gt; [Int] -&gt; ([Int], [Int])
 </span><a href="Minfree.html#partition"><span class="hs-identifier hs-var">partition</span></a></span><span> </span><span class="hs-special">(</span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Bool
@@ -243,7 +252,7 @@ forall a. Ord a =&gt; a -&gt; a -&gt; Bool
 </span><span class="hs-operator hs-var">&lt;</span></span><span> </span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033191"><span class="hs-identifier hs-var">b</span></a></span><span class="hs-special">)</span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033193"><span class="hs-identifier hs-var">xs</span></a></span><span>
-</span><span id="line-64"></span><span>      </span><span id="local-6989586621679033191"><span class="annot"><span class="annottext">b :: Int
+</span><span id="line-73"></span><span>      </span><span id="local-6989586621679033191"><span class="annot"><span class="annottext">b :: Int
 </span><a href="#local-6989586621679033191"><span class="hs-identifier hs-var hs-var">b</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">Int
 </span><a href="#local-6989586621679033195"><span class="hs-identifier hs-var">a</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
 forall a. Num a =&gt; a -&gt; a -&gt; a
@@ -253,9 +262,9 @@ forall a. Num a =&gt; a -&gt; a -&gt; a
 </span><a href="#local-6989586621679033194"><span class="hs-identifier hs-var">n</span></a></span><span> </span><span class="annot"><span class="annottext">Int -&gt; Int -&gt; Int
 forall a. Integral a =&gt; a -&gt; a -&gt; a
 </span><span class="hs-operator hs-var">`div`</span></span><span> </span><span class="annot"><span class="hs-number">2</span></span><span>
-</span><span id="line-65"></span><span>      </span><span id="local-6989586621679033192"><span class="annot"><span class="annottext">m :: Int
+</span><span id="line-74"></span><span>      </span><span id="local-6989586621679033192"><span class="annot"><span class="annottext">m :: Int
 </span><a href="#local-6989586621679033192"><span class="hs-identifier hs-var hs-var">m</span></a></span></span><span> </span><span class="hs-glyph">=</span><span> </span><span class="annot"><span class="annottext">[Int] -&gt; Int
 forall (t :: * -&gt; *) a. Foldable t =&gt; t a -&gt; Int
 </span><span class="hs-identifier hs-var">length</span></span><span> </span><span class="annot"><span class="annottext">[Int]
 </span><a href="#local-6989586621679033189"><span class="hs-identifier hs-var">us</span></a></span><span>
-</span><span id="line-66"></span></pre></body></html>
+</span><span id="line-75"></span></pre></body></html>
