@@ -27,16 +27,22 @@ library:
   source-dirs: src
 
 executables:
-  PFAD-exe:
-    main:                Main.hs
-    source-dirs:         app
+  minfree:
+    main:                app/Main.hs
     ghc-options:
     - -threaded
     - -rtsopts
     - -with-rtsopts=-N
     dependencies:
     - PFAD
-
+  fastMinfree:
+    main: app/FastMinfreeApp.hs
+    ghc-options:
+    - -threaded
+    - -rtsopts
+    - -with-rtsopts=-N
+    dependencies:
+    - PFAD
 tests:
   PFAD-test:
     main:                Spec.hs
