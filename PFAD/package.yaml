@@ -54,3 +54,4 @@ tests:
     dependencies:
     - PFAD
     - hspec
+    - QuickCheck
