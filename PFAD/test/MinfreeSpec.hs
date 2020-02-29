@@ -4,7 +4,7 @@ import Test.Hspec
 import Minfree
 import Test.Hspec.QuickCheck (prop)
 import Test.QuickCheck
-
+import Data.List (nub)
 
 spec :: Spec
 spec = do
@@ -19,5 +19,8 @@ spec = do
   describe "minfree == minfree'" $
     prop "minfree == minfree'" prop_Minfree
 
-prop_Minfree :: [Int] -> Bool
-prop_Minfree xs = minfree xs == minfree' xs
+prop_Minfree :: [Positive Int] -> Property
+prop_Minfree xs = preCondition ==> minfree ns == minfree' ns
+  where
+    ns = map getPositive xs
+    preCondition = length (nub xs) == length xs
