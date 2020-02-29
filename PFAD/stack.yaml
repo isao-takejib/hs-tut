@@ -36,7 +36,12 @@ packages:
 #
 extra-deps:
 - github: waddlaw/single-repo
-  commit: 16463931082172d6ad780034f6905e373dbc5139  
+  commit: 16463931082172d6ad780034f6905e373dbc5139
+- github: waddlaw/mega-repo
+  commit: 130b4a853a6cdd1e2f2090b9a9a755ce30ee50d7
+  subdirs:
+  - mega-repo1
+  - mega-repo2
 # - acme-missiles-0.3
 # - git: https://github.com/commercialhaskell/stack.git
 #   commit: e7b331f14bcffb8367cd58fbfc8b40ec7642100a
