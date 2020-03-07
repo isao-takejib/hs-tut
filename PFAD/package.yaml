@@ -75,3 +75,4 @@ tests:
     - PFAD
     - tasty
     - tasty-hunit
+    - tasty-quickcheck
