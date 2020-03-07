@@ -76,3 +76,5 @@ tests:
     - tasty
     - tasty-hunit
     - tasty-quickcheck
+    - tasty-hspec
+    - hspec
