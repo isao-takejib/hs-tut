@@ -40,5 +40,5 @@ test_tasty = testGroup "Unit tests"
   [ testCase "List comparison (different length)" $
       "abc" `compare` "ab" @?= GT
     , testCase "List comparison (same length)" $
-      "abc" `compare` "abc" @?= EQ
+      "abc" `compare` "abb" @?= GT
   ]
