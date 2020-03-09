@@ -7,6 +7,7 @@ import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
 import Test.Tasty.Hspec
 import Test.Tasty.ExpectedFailure
+import Test.Tasty.Golden
 import Test.Hspec.QuickCheck (prop)
 
 import Data.List (nub)
@@ -49,3 +50,11 @@ test_failure = expectFail $ testGroup "Unit tests"
   [ testCase "different length" $
       length "abc" @?= 0
   ]
+
+test_goldenFile :: TestTree
+test_goldenFile = goldenVsFile "goldenVsFile" "./test-tasty/golden" "./test-tasty/output" $
+  writeFile "./test-tasty/output" "aaa"
+
+test_goldenFileDiff :: TestTree
+test_goldenFileDiff = goldenVsFileDiff "goldenVsFileDiff" (\ref new -> ["diff", "-u", ref, new]) "./test-tasty/golden" "./test-tasty/outputDiff" $
+  writeFile "./test-tasty/outputDiff" "aaa"

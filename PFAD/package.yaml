@@ -79,3 +79,4 @@ tests:
     - tasty-hspec
     - hspec
     - tasty-expected-failure
+    - tasty-golden
