@@ -78,3 +78,4 @@ tests:
     - tasty-quickcheck
     - tasty-hspec
     - hspec
+    - tasty-expected-failure

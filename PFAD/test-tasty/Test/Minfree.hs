@@ -6,6 +6,7 @@ import Test.Tasty
 import Test.Tasty.HUnit
 import Test.Tasty.QuickCheck
 import Test.Tasty.Hspec
+import Test.Tasty.ExpectedFailure
 import Test.Hspec.QuickCheck (prop)
 
 import Data.List (nub)
@@ -41,4 +42,10 @@ test_tasty = testGroup "Unit tests"
       "abc" `compare` "ab" @?= GT
     , testCase "List comparison (same length)" $
       "abc" `compare` "abb" @?= GT
+  ]
+
+test_failure :: TestTree
+test_failure = expectFail $ testGroup "Unit tests"
+  [ testCase "different length" $
+      length "abc" @?= 0
   ]
