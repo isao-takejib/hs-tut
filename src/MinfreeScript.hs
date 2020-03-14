@@ -15,6 +15,7 @@ minfree xs = head ([0..] \\ xs)
 (\\) :: Eq a => [a] -> [a] -> [a]
 us \\ vs = filter (`notElem` vs) us
 
+{-
 search :: Array Int Bool -> Int
 search = length . takeWhile id . elems
 
@@ -51,3 +52,4 @@ minfrom a (n, xs)
       (us, vs) = partition (< b) xs
       b = a + 1 + n `div` 2
       m = length us
+-}
