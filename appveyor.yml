@@ -1,0 +1,38 @@
+clone_folder: "c:\\WORK"
+clone_depth: 5
+
+# Do not build feature branch with open Pull Requests
+skip_branch_with_pr: true
+
+platform:
+  - x64
+  - x86
+
+environment:
+  global:
+    CHOCOCMD: ghc --version %GHCVER%
+  matrix:
+    - GHCVER: 8.6.5
+
+cache:
+  - '%LOCALAPPDATA%\Programs\stack\'
+  - "c:\\sr -> appveyor.yml"
+
+for:
+  -
+    matrix:
+      only:
+        - platform: x86
+    environment:
+      global:
+        GHCOPTS: --forcex86
+
+install:
+  - choco install -y haskell-stack
+  - refreshenv
+
+before_build:
+  - stack --version
+
+build_script:
+  - cmd: stack build
