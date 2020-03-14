@@ -1,0 +1,21 @@
+name: stack
+
+on:
+  push:
+    branches:
+    - master
+
+jobs:
+  build:
+    runs-on: ubuntu-18.04
+    container: quay.io/haskell_works/stack-build-icu
+    steps:
+     - uses: actions/chechout@v1
+
+     - name: Display stack version
+       run: stack --version
+
+     - name: Build & test
+       run: |
+         stack install tasty-discover --stack-root $HOME --allow-different-user
+         stack test --fast --stack-root $HOME --allow-different-user
