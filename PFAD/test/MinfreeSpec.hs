@@ -1,10 +1,10 @@
 module MinfreeSpec (spec) where
 
-import Test.Hspec
-import Minfree
-import Test.Hspec.QuickCheck (prop)
-import Test.QuickCheck
-import Data.List (nub)
+import           Data.List             (nub)
+import           Minfree
+import           Test.Hspec
+import           Test.Hspec.QuickCheck (prop)
+import           Test.QuickCheck
 
 spec :: Spec
 spec = do

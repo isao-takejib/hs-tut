@@ -1,8 +1,8 @@
 module MinfreeScript (main) where
 
-import Data.Array (Array, elems, accumArray, assocs)
-import Data.Array.ST (runSTArray, newArray, writeArray)
-import System.Environment (getArgs)
+import           Data.Array         (Array, accumArray, assocs, elems)
+import           Data.Array.ST      (newArray, runSTArray, writeArray)
+import           System.Environment (getArgs)
 
 main :: IO ()
 main = do
@@ -32,7 +32,7 @@ sort xs = concat [replicate k x | (x, k) <- assocs (countlist xs)]
 checklist' :: [Int] -> Array Int Bool
 checklist' xs = runSTArray $ do
     a <- newArray (0, n) False
-    sequence [writeArray a x True | x <- xs, x <=n]
+    sequence_ [writeArray a x True | x <- xs, x <=n]
     return a
     where n = length xs
 

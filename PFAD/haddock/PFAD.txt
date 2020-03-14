@@ -40,3 +40,6 @@ minfree' :: [Int] -> Int
 --   (as \\ bs) \\ cs == (as \\ cs) \\ bs
 --   </pre>
 (\\) :: Eq a => [a] -> [a] -> [a]
+
+module MinfreeScript
+main :: IO ()
