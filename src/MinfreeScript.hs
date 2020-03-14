@@ -1,7 +1,7 @@
 module MinfreeScript (main) where
 
-import           Data.Array         (Array, accumArray, assocs, elems)
-import           Data.Array.ST      (newArray, runSTArray, writeArray)
+-- import           Data.Array         (Array, accumArray, assocs, elems)
+-- import           Data.Array.ST      (newArray, runSTArray, writeArray)
 import           System.Environment (getArgs)
 
 main :: IO ()
